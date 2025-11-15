@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>
+<%= user.name %> - Profil</title>
+</head>
+<body>
+
+10
+
+<h1>
+<%= user.name %>
+</h1>
+<p>Âge : <%= user.age %></p>
+<p>Profession : <%= user.occupation %></p>
+<h3>Loisirs :</h3>
+<ul> <% user.hobbies.forEach(hobby => { %> <li><%= hobby %></li> <% }); %> </ul>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<h1>Tâches</h1>
+
+<!-- Formulaire pour ajouter une nouvelle tâche -->
+<form id="taskForm">
+    <input type="text" name="title" placeholder="Nouvelle tâche..." required>
+    <button type="submit">Ajouter</button>
+</form>
+
+<div id="message"></div>
+
+<!-- Liste des tâches -->
+<ul id="tasksList">
+    <% tasks.forEach(task => { %>
+    <li>
+        <%= task.title %> - 
+        <% if (task.done) { %> 
+            Terminée
+        <% } else { %> 
+            En cours
+        <% } %>
+    </li>
+    <% }) %>
+</ul>
+
+<p>Total des tâches : <%= totalTasks %></p>
+
+<a href="/">Retour à l'accueil</a>
+
+<script>
+  
+    document.getElementById('taskForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const title = formData.get('title');
+        const messageDiv = document.getElementById('message');
+
+        try {
+            const response = await fetch('/api/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title: title })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Réinitialiser le formulaire
+                this.reset();
+                messageDiv.innerHTML = 'Tâche ajoutée avec succès!';
+                
+              
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+                
+            } else {
+                messageDiv.innerHTML = 'Erreur: ' + result.message;
+            }
+        } catch (error) {
+            messageDiv.innerHTML = 'Erreur de connexion';
+        }
+    });
+</script>

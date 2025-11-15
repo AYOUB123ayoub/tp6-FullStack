@@ -1,0 +1,24 @@
+
+    <h1>À propos</h1>
+    
+    <h2><%= courseInfo.title %></h2>
+    <p><%= courseInfo.description %></p>
+
+    <h3>Informations du cours</h3>
+    <p>Durée: <%= courseInfo.courseDetails.duration %></p>
+    <p>Niveau: <%= courseInfo.courseDetails.level %></p>
+    <p>Prix: <%= courseInfo.courseDetails.price %></p>
+
+    <h3>Instructeur</h3>
+    <p><%= courseInfo.instructor.name %></p>
+    <p><%= courseInfo.instructor.bio %></p>
+    <p>Email: <%= courseInfo.instructor.email %></p>
+
+    <h4>Compétences:</h4>
+    <ul>
+        <% courseInfo.instructor.expertise.forEach(skill => { %>
+            <li><%= skill %></li>
+        <% }); %>
+    </ul>
+
+    <p><a href="/">Retour à l'accueil</a></p>
